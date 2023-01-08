@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}
+{% endblock title %}
+{% block content %}
+{% for city in cities %}
+<h2><a class="nav-link" href="{% url 'main:messages' city.slug %}">{{ city.title }}</a></h2>
+    {{ city.description|linebreaks }}
+{% if not forloop.last %}<hr>{% endif %}
+{% endfor %}
+{% endblock content %}

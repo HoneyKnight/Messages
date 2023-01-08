@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}
+Запросы
+{% endblock title %}
+{% block content %}
+{% for text in zapros %}
+    {{ text.primer|linebreaks }}
+<hr>
+    <h3>{{ text.city|linebreaks }}</h3>
+<hr>
+<textarea id="content" style="width:500px; height:200px;">
+{{ text.title }} {{ text.town }}
+{{ text.name }}
+{{ text.number }}
+{{ text.baza }}
+</textarea>
+<br>
+    <a class="btn btn-primary" href="{% url 'main:zapros_edit' text.id %}">редактировать</a>
+    <button class="btn btn-primary" id="copy" title="Copy Textarea Content">Копировать</button>
+    <script>
+    document.getElementById("copy").onclick = function() {
+        var copyTextarea = document.createElement("textarea");
+        copyTextarea.style.position = "fixed";
+        copyTextarea.style.opacity = "0";
+        copyTextarea.textContent = document.getElementById("content").value;
+    
+        document.body.appendChild(copyTextarea);
+        copyTextarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(copyTextarea);
+    }
+    </script>
+{% endfor %}
+{% endblock content %}

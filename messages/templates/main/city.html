@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}
+{% endblock title %}
+{% block content %}
+{% for message in messages %}
+<textarea id="content" style="width:500px; height:300px;">
+{{ message.title }}
+
+{{ message.weektime }} {{ message.hourtime }}
+{{ message.text }}
+</textarea>
+<br>
+    <a class="btn btn-primary" href="{% url 'main:message_edit' message.id %}">редактировать</a>
+    <button class="btn btn-primary" id="copy" title="Copy Textarea Content">Копировать</button>
+    <script>
+    document.getElementById("copy").onclick = function() {
+        var copyTextarea = document.createElement("textarea");
+        copyTextarea.style.position = "fixed";
+        copyTextarea.style.opacity = "0";
+        copyTextarea.textContent = document.getElementById("content").value;
+    
+        document.body.appendChild(copyTextarea);
+        copyTextarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(copyTextarea);
+    }
+    </script>
+{% endfor %}
+{% endblock content %}

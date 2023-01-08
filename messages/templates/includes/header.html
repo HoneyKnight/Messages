@@ -1,0 +1,25 @@
+{% load static %}
+{% with request.resolver_match.view_name as view_name %}
+<nav class="navbar navbar-light" style="background-color: lightskyblue">
+  <div class="container">
+    <a class="navbar-brand" href="{% url 'main:index' %}">
+      <img src="{% static 'img/logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+      <span style="color:red">Me</span>ssages
+    </a>
+    <ul class="nav nav-pills">
+      <li class="nav-item"> 
+        <a class="nav-link {% if view_name  == 'main:prioritet' %}active{% endif %}"
+        href="{% url 'main:prioritet' %}">Приоритетность</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if view_name  == 'main:zapros' %}active{% endif %}"
+        href="{% url 'main:zapros' %}">Запросы</a>
+      </li>
+      <li class="nav-item"> 
+        <a class="nav-link {% if view_name  == '' %}active{% endif %}"
+        href="{% url 'admin:index' %}">Администрирование</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+{% endwith %}
