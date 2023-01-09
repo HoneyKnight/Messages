@@ -3,7 +3,7 @@
 {% endblock title %}
 {% block content %}
 {% for city in cities %}
-<h2><a class="nav-link" href="{% url 'main:messages' city.slug %}">{{ city.title }}</a></h2>
+<h2><a href="{% url 'main:messages' city.slug %}">{{ city.title }}</a></h2>
     {{ city.description|linebreaks }}
 {% if not forloop.last %}<hr>{% endif %}
 {% endfor %}

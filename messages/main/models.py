@@ -20,7 +20,7 @@ class Message(models.Model):
         null=True
     )
     hourtime = models.ForeignKey(
-        'SobesTime',
+        'InterviewTime',
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
@@ -69,7 +69,7 @@ class City(models.Model):
         return self.title
 
 
-class SobesTime(models.Model):
+class InterviewTime(models.Model):
     value = models.CharField(
         max_length=50
     )
@@ -82,7 +82,7 @@ class SobesTime(models.Model):
         return self.value
 
 
-class Prioritet(models.Model):
+class Priority(models.Model):
     city = models.CharField(
         max_length=250,
         blank=True,

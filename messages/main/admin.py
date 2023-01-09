@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import City, Message, Prioritet, SobesTime, Zapros
+from .models import City, Message, Priority, InterviewTime, Zapros
 
 
 class MessageAdmin(admin.ModelAdmin):
@@ -15,7 +15,7 @@ class MessageAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Zapros)
-admin.site.register(Prioritet)
+admin.site.register(Priority)
 admin.site.register(City)
-admin.site.register(SobesTime)
+admin.site.register(InterviewTime)
 admin.site.register(Message, MessageAdmin)

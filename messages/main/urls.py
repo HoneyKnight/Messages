@@ -13,7 +13,7 @@ urlpatterns = [
         views.message_edit,
         name='message_edit'
     ),
-    path('prioritet/', views.prioritet, name='prioritet'),
+    path('priority/', views.priority, name='priority'),
     path('zapros/', views.zapros, name='zapros'),
     path('zapros/<int:zapros_id>/edit/', views.zapros_edit, name='zapros_edit')
 ]

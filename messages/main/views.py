@@ -1,9 +1,12 @@
 from django.shortcuts import get_object_or_404, redirect, render
-
+from django.contrib.auth.decorators import login_required
 from .forms import MessageForm, ZaprosForm
-from .models import City, Message, Prioritet, Zapros
+from .models import City, Message, Priority, Zapros
+from django.views.decorators.cache import cache_page
 
 
+@login_required
+@cache_page(20, key_prefix='index_page')
 def index(request):
     cities = City.objects.all()
     context = {
@@ -12,6 +15,7 @@ def index(request):
     return render(request, 'main/index.html', context)
 
 
+@login_required
 def messages(request, slug):
     cities = get_object_or_404(City, slug=slug)
     messages = Message.objects.filter(cities=cities)
@@ -22,6 +26,7 @@ def messages(request, slug):
     return render(request, 'main/city.html', context)
 
 
+@login_required
 def zapros(request):
     zapros = Zapros.objects.all()
     context = {
@@ -30,14 +35,16 @@ def zapros(request):
     return render(request, 'main/zapros.html', context)
 
 
-def prioritet(request):
-    spisok = Prioritet.objects.all()
+@login_required
+def priority(request):
+    priority = Priority.objects.all()
     context = {
-        'spisok': spisok
+        'priority': priority
     }
-    return render(request, 'main/prioritet.html', context)
+    return render(request, 'main/priority.html', context)
 
 
+@login_required
 def message_edit(request, message_id):
     messages = get_object_or_404(Message, id=message_id)
     form = MessageForm(
@@ -53,6 +60,7 @@ def message_edit(request, message_id):
     return redirect(f'/cities/{messages.cities.slug}/')
 
 
+@login_required
 def zapros_edit(request, zapros_id):
     zapros = get_object_or_404(Zapros, id=zapros_id)
     form = ZaprosForm(

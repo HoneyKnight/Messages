@@ -3,7 +3,7 @@
 {{ group.title }}
 {% endblock title %}
 {% block content %}
-{% for arr in spisok %}
+{% for arr in priority %}
     <h1>{{ arr.city }}</h1>
     <h5>{{ arr.vacancy|linebreaks }}</h5>
 {% if not forloop.last %}<hr>{% endif %}
