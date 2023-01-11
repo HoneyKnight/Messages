@@ -7,12 +7,6 @@ class Message(models.Model):
         blank=True,
         verbose_name='Заголовок'
     )
-    text = models.TextField(
-        null=False,
-        blank=False,
-        verbose_name='Текст сообщения',
-        help_text='Введите текст сообщения',
-    )
     weektime = models.DateField(
         verbose_name='Дата собеседования',
         help_text='Выберите дату собеседования',
@@ -27,6 +21,12 @@ class Message(models.Model):
         verbose_name='Время собеседования',
         help_text='Выберите время собеседования'
     )
+    text = models.TextField(
+        null=False,
+        blank=False,
+        verbose_name='Текст сообщения',
+        help_text='Введите текст сообщения',
+    )
     cities = models.ForeignKey(
         'City',
         on_delete=models.SET_NULL,
@@ -35,13 +35,70 @@ class Message(models.Model):
         verbose_name='Город',
         help_text='Выберите город',
     )
+    number = models.CharField(
+        max_length=20,
+        blank=True,
+        null=True,
+        verbose_name='Номер кандидата',
+        help_text='Вставьте номер кандидата'
+    )
 
     class Meta:
         verbose_name = 'Сообщение'
         verbose_name_plural = 'Сообщения'
 
     def __str__(self):
-        return self.text[:15]
+        return self.text
+
+
+class MessageOffice(models.Model):
+    title = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name='Заголовок'
+    )
+    weektime = models.DateField(
+        verbose_name='Дата собеседования',
+        help_text='Выберите дату собеседования',
+        blank=True,
+        null=True
+    )
+    hourtime = models.ForeignKey(
+        'InterviewTimeOffice',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name='Время собеседования',
+        help_text='Выберите время собеседования'
+    )
+    text = models.TextField(
+        null=False,
+        blank=False,
+        verbose_name='Текст сообщения',
+        help_text='Введите текст сообщения',
+    )
+    cities = models.ForeignKey(
+        'City',
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        verbose_name='Город',
+        help_text='Выберите город',
+    )
+    number = models.CharField(
+        max_length=20,
+        blank=True,
+        null=True,
+        verbose_name='Номер кандидата',
+        help_text='Вставьте номер кандидата'
+    )
+
+    class Meta:
+        verbose_name = 'Сообщение_Офис'
+        verbose_name_plural = 'Сообщения_Офис'
+
+    def __str__(self):
+        return self.text
 
 
 class City(models.Model):
@@ -77,6 +134,19 @@ class InterviewTime(models.Model):
     class Meta:
         verbose_name = 'Время собеседования'
         verbose_name_plural = 'Время собеседований'
+
+    def __str__(self):
+        return self.value
+
+
+class InterviewTimeOffice(models.Model):
+    value = models.CharField(
+        max_length=50
+    )
+
+    class Meta:
+        verbose_name = 'Время собеседования в офисе'
+        verbose_name_plural = 'Время собеседований в офисе'
 
     def __str__(self):
         return self.value
@@ -135,7 +205,8 @@ class Zapros(models.Model):
         verbose_name='ФИО',
         help_text='Введите ФИО'
     )
-    number = models.IntegerField(
+    number = models.CharField(
+        max_length=20,
         blank=True,
         null=True,
         verbose_name='Номер телефона',
@@ -154,3 +225,50 @@ class Zapros(models.Model):
 
     def __str__(self):
         return 'Запрос'
+
+
+class SampleResponse(models.Model):
+    text = models.TextField(
+        max_length=300,
+        blank=True,
+        null=True,
+    )
+    number = models.CharField(
+        max_length=20,
+        verbose_name='Номер кандидата',
+        help_text='Вставьте номер кандидата'
+    )
+
+    class Meta:
+        verbose_name = 'Шаблон отклика'
+        verbose_name_plural = 'Шаблоны отклика'
+
+    def __str__(self):
+        return 'Шаблон отклика'
+
+
+class SampleStraight(models.Model):
+    text = models.TextField(
+        max_length=300,
+        blank=True,
+        null=True,
+    )
+    name = models.CharField(
+        max_length=30,
+        blank=True,
+        null=True,
+        verbose_name='Имя',
+        help_text='Введите своё имя'
+    )
+    number = models.CharField(
+        max_length=20,
+        verbose_name='Номер кандидата',
+        help_text='Вставьте номер кандидата'
+    )
+
+    class Meta:
+        verbose_name = 'Шаблон прямого поиска'
+        verbose_name_plural = 'Шаблоны прямых поисков'
+
+    def __str__(self):
+        return 'Шаблон прямого поиска'

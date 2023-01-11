@@ -1,24 +1,48 @@
 {% extends 'base.html' %}
 {% block title %}
+Сообщение
 {% endblock title %}
 {% block content %}
 {% for message in messages %}
 <textarea id="content" style="width:500px; height:300px;">
 {{ message.title }}
-
-{{ message.weektime }} {{ message.hourtime }}
-{{ message.text }}
-</textarea>
+{{ message.weektime }} {{ message.hourtime }} {{ message.text }}</textarea>
 <br>
-    <a class="btn btn-primary" href="{% url 'main:message_edit' message.id %}">редактировать</a>
-    <button class="btn btn-primary" id="copy" title="Copy Textarea Content">Копировать</button>
+<a class="btn btn-primary" href="https://web.whatsapp.com/send?phone={{ message.number }}">|Ссылка на WhatsApp кандидата|</a>
+<br>
+<br>
+    <a class="btn btn-primary" href="{% url 'main:message_edit' message.id %}">|Редактировать|</a>
+    <button class="btn btn-primary" id="copy" title="Copy Textarea Content">|Копировать|</button>
     <script>
     document.getElementById("copy").onclick = function() {
         var copyTextarea = document.createElement("textarea");
         copyTextarea.style.position = "fixed";
         copyTextarea.style.opacity = "0";
         copyTextarea.textContent = document.getElementById("content").value;
-    
+        document.body.appendChild(copyTextarea);
+        copyTextarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(copyTextarea);
+    }
+    </script>
+{% endfor %}
+<hr>
+{% for message_office in messages_office %}
+<textarea id="content_office" style="width:500px; height:300px;">
+{{ message_office.title }}
+{{ message_office.weektime }} {{ message_office.hourtime }} {{ message_office.text }}</textarea>
+<br>
+<a class="btn btn-primary" href="https://web.whatsapp.com/send?phone={{ message.number }}">|Ссылка на WhatsApp кандидата|</a>
+<br>
+<br>
+    <a class="btn btn-primary" href="{% url 'main:message_office_edit' message_office.id %}">|Редактировать|</a>
+    <button class="btn btn-primary" id="copy_office" title="Copy Textarea Content">|Копировать|</button>
+    <script>
+    document.getElementById("copy_office").onclick = function() {
+        var copyTextarea = document.createElement("textarea");
+        copyTextarea.style.position = "fixed";
+        copyTextarea.style.opacity = "0";
+        copyTextarea.textContent = document.getElementById("content_office").value;
         document.body.appendChild(copyTextarea);
         copyTextarea.select();
         document.execCommand("copy");

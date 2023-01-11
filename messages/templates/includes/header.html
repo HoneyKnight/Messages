@@ -9,7 +9,15 @@
     </a>
     <ul class="nav nav-pills">
       <li class="nav-item"> 
-        <a class="nav-link {% if view_name  == 'main:prioritet' %}active{% endif %}"
+        <a class="nav-link {% if view_name  == 'main:index' %}active{% endif %}"
+        href="{% url 'main:index' %}">Главная</a>
+      </li>
+      <li class="nav-item"> 
+        <a class="nav-link {% if view_name  == 'main:sample' %}active{% endif %}"
+        href="{% url 'main:sample' %}">Шаблоны</a>
+      </li>
+      <li class="nav-item"> 
+        <a class="nav-link {% if view_name  == 'main:priority' %}active{% endif %}"
         href="{% url 'main:priority' %}">Приоритетность</a>
       </li>
       <li class="nav-item">
