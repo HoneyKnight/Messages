@@ -8,11 +8,11 @@
 {{ message.title }}
 {{ message.weektime }} {{ message.hourtime }} {{ message.text }}</textarea>
 <br>
-<a class="btn btn-primary" href="https://web.whatsapp.com/send?phone={{ message.number }}">|Ссылка на WhatsApp кандидата|</a>
-<br>
-<br>
     <a class="btn btn-primary" href="{% url 'main:message_edit' message.id %}">|Редактировать|</a>
     <button class="btn btn-primary" id="copy" title="Copy Textarea Content">|Копировать|</button>
+<br>
+<br>
+    <a class="btn btn-primary" href="https://web.whatsapp.com/send?phone={{ message.number }}">|Ссылка на WhatsApp кандидата|</a>
     <script>
     document.getElementById("copy").onclick = function() {
         var copyTextarea = document.createElement("textarea");
@@ -32,11 +32,11 @@
 {{ message_office.title }}
 {{ message_office.weektime }} {{ message_office.hourtime }} {{ message_office.text }}</textarea>
 <br>
-<a class="btn btn-primary" href="https://web.whatsapp.com/send?phone={{ message.number }}">|Ссылка на WhatsApp кандидата|</a>
-<br>
-<br>
     <a class="btn btn-primary" href="{% url 'main:message_office_edit' message_office.id %}">|Редактировать|</a>
     <button class="btn btn-primary" id="copy_office" title="Copy Textarea Content">|Копировать|</button>
+<br>
+<br>
+    <a class="btn btn-primary" href="https://web.whatsapp.com/send?phone={{ message.number }}">|Ссылка на WhatsApp кандидата|</a>
     <script>
     document.getElementById("copy_office").onclick = function() {
         var copyTextarea = document.createElement("textarea");
