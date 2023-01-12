@@ -7,7 +7,7 @@
 <textarea id="content_response" style="width:500px; height:300px;">
 {{ sampleresponse.text }}</textarea>
 <br>
-<a class="btn btn-primary" href="https://web.whatsapp.com/send?phone={{ sampleresponse.number }}">|Ссылка на WhatsApp кандидата|</a>
+<a class="btn btn-primary" href="https://web.whatsapp.com/send?phone={{ sampleresponse.number }}" target="_blank">|Ссылка на WhatsApp кандидата|</a>
 <br>
 <br>
     <a class="btn btn-primary" href="{% url 'main:sample_edit' sampleresponse.id %}">|Редактировать|</a>
@@ -31,7 +31,7 @@
 {{ samplestraight.text }}
 {{ samplestraight.name }}, менеджер по подбору персонала</textarea>
 <br>
-<a class="btn btn-primary" href="https://web.whatsapp.com/send?phone={{ samplestraight.number }}">|Ссылка на WhatsApp кандидата|</a>
+<a class="btn btn-primary" href="https://web.whatsapp.com/send?phone={{ samplestraight.number }}" target="_blank">|Ссылка на WhatsApp кандидата|</a>
 <br>
 <br>
     <a class="btn btn-primary" href="{% url 'main:samplestraight_edit' samplestraight.id %}">|Редактировать|</a>
