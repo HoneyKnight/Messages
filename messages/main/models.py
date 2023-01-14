@@ -134,6 +134,7 @@ class InterviewTime(models.Model):
     class Meta:
         verbose_name = 'Время собеседования'
         verbose_name_plural = 'Время собеседований'
+        ordering = ['value']
 
     def __str__(self):
         return self.value
