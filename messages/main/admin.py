@@ -21,7 +21,7 @@ class InterviewTimeAdmin(admin.ModelAdmin):
         'get_cities'
     )
     def get_cities(self, obj):
-        return " |\n".join([str(City) for City in obj.cities.all()])
+        return " | ".join([str(City) for City in obj.cities.all()])
 
 
 admin.site.register(Zapros)
