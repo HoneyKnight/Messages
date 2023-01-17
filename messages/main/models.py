@@ -51,56 +51,6 @@ class Message(models.Model):
         return self.text
 
 
-class MessageOffice(models.Model):
-    title = models.TextField(
-        null=True,
-        blank=True,
-        verbose_name='Заголовок'
-    )
-    weektime = models.DateField(
-        verbose_name='Дата собеседования',
-        help_text='Выберите дату собеседования',
-        blank=True,
-        null=True
-    )
-    hourtime = models.ForeignKey(
-        'InterviewTimeOffice',
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        verbose_name='Время собеседования',
-        help_text='Выберите время собеседования'
-    )
-    text = models.TextField(
-        null=False,
-        blank=False,
-        verbose_name='Текст сообщения',
-        help_text='Введите текст сообщения',
-    )
-    cities = models.ForeignKey(
-        'City',
-        on_delete=models.SET_NULL,
-        blank=True,
-        null=True,
-        verbose_name='Город',
-        help_text='Выберите город',
-    )
-    number = models.CharField(
-        max_length=20,
-        blank=True,
-        null=True,
-        verbose_name='Номер кандидата',
-        help_text='Вставьте номер кандидата'
-    )
-
-    class Meta:
-        verbose_name = 'Сообщение_Офис'
-        verbose_name_plural = 'Сообщения_Офис'
-
-    def __str__(self):
-        return self.text
-
-
 class City(models.Model):
     title = models.CharField(
         max_length=200,
@@ -130,24 +80,15 @@ class InterviewTime(models.Model):
     value = models.CharField(
         max_length=50
     )
-
+    cities = models.ManyToManyField(
+        City,
+        verbose_name='Время собеседования',
+        help_text='Выберите время собеседования'
+    )
     class Meta:
         verbose_name = 'Время собеседования'
         verbose_name_plural = 'Время собеседований'
         ordering = ['value']
-
-    def __str__(self):
-        return self.value
-
-
-class InterviewTimeOffice(models.Model):
-    value = models.CharField(
-        max_length=50
-    )
-
-    class Meta:
-        verbose_name = 'Время собеседования в офисе'
-        verbose_name_plural = 'Время собеседований в офисе'
 
     def __str__(self):
         return self.value

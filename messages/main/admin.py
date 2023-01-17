@@ -1,8 +1,7 @@
 from django.contrib import admin
 
-from .models import (City, InterviewTime, InterviewTimeOffice, Message,
-                     MessageOffice, Priority, SampleResponse, SampleStraight,
-                     Zapros)
+from .models import (City, InterviewTime, Message, Priority, SampleResponse,
+                     SampleStraight, Zapros)
 
 
 class MessageAdmin(admin.ModelAdmin):
@@ -16,23 +15,19 @@ class MessageAdmin(admin.ModelAdmin):
     empty_value_display = '-пусто-'
 
 
-class MessageOfficeAdmin(admin.ModelAdmin):
+class InterviewTimeAdmin(admin.ModelAdmin):
     list_display = (
-        'id',
-        'text',
-        'cities'
+        'value',
+        'get_cities'
     )
-    list_editable = ('cities', )
-    search_fields = ('text', )
-    empty_value_display = '-пусто-'
+    def get_cities(self, obj):
+        return " |\n".join([str(City) for City in obj.cities.all()])
 
 
 admin.site.register(Zapros)
 admin.site.register(Priority)
 admin.site.register(City)
-admin.site.register(InterviewTime)
+admin.site.register(InterviewTime, InterviewTimeAdmin)
 admin.site.register(Message, MessageAdmin)
 admin.site.register(SampleResponse)
 admin.site.register(SampleStraight)
-admin.site.register(MessageOffice, MessageOfficeAdmin)
-admin.site.register(InterviewTimeOffice)

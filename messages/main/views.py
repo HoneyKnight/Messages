@@ -1,17 +1,19 @@
 from django.contrib.auth.decorators import login_required
+from django.db.models import Count
+from django.db.models.functions import Length
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.cache import cache_page
 
 from .forms import (MessageForm, SampleResponseForm, SampleStraightForm,
-                    ZaprosForm, MessageOfficeForm)
-from .models import (City, Message, MessageOffice, Priority, SampleResponse,
-                     SampleStraight, Zapros)
+                    ZaprosForm)
+from .models import (City, Message, Priority, SampleResponse, SampleStraight,
+                     Zapros)
 
 
 @cache_page(20, key_prefix='index_page')
 @login_required
 def index(request):
-    cities = City.objects.all()
+    cities = City.objects.all().order_by(Length('description').asc())[::-1]
     context = {
         'cities': cities,
     }
@@ -33,11 +35,9 @@ def sample(request):
 def messages(request, slug):
     cities = get_object_or_404(City, slug=slug)
     messages = Message.objects.filter(cities=cities)
-    messages_office = MessageOffice.objects.filter(cities=cities)
     context = {
         'cities': cities,
         'messages': messages,
-        'messages_office': messages_office,
     }
     return render(request, 'main/city.html', context)
 
@@ -65,6 +65,7 @@ def priority(request):
 def message_edit(request, message_id):
     messages = get_object_or_404(Message, id=message_id)
     form = MessageForm(
+        messages.cities,
         request.POST or None,
         instance=messages,
     )
@@ -75,22 +76,6 @@ def message_edit(request, message_id):
         })
     form.save()
     return redirect(f'/cities/{messages.cities.slug}/')
-
-
-@login_required
-def messages_office_edit(request, messages_office_id):
-    messages_office = get_object_or_404(MessageOffice, id=messages_office_id)
-    form = MessageOfficeForm(
-        request.POST or None,
-        instance=messages_office,
-    )
-    if not form.is_valid():
-        return render(request, 'main/edit_message.html', {
-            'messages_office': messages_office,
-            'form': form,
-        })
-    form.save()
-    return redirect(f'/cities/{messages_office.cities.slug}/')
 
 
 @login_required

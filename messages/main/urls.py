@@ -13,11 +13,6 @@ urlpatterns = [
         views.message_edit,
         name='message_edit'
     ),
-    path(
-        'messages/office/<int:messages_office_id>/edit/',
-        views.messages_office_edit,
-        name='message_office_edit'
-    ),
     path('priority/', views.priority, name='priority'),
     path('zapros/', views.zapros, name='zapros'),
     path(

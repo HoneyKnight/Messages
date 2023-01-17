@@ -1,28 +1,24 @@
 from django import forms
 from django.forms import SelectDateWidget
 
-from .models import Message, SampleResponse, SampleStraight, Zapros, MessageOffice
+from .models import (InterviewTime, Message, SampleResponse, SampleStraight,
+                     Zapros)
 
 
 class MessageForm(forms.ModelForm):
+    hourtime = forms.ModelChoiceField(
+        queryset=InterviewTime.objects.all(),
+        label='Время собеседования',
+        help_text='Выберите время собеседования'
+    )
+    def __init__(self, cities, *args, **kwargs):
+        super(MessageForm, self).__init__(*args, **kwargs)
+        self.fields['hourtime'].queryset = InterviewTime.objects.filter(cities=cities)
     class Meta:
         model = Message
         fields = ('weektime', 'hourtime', 'number')
         label = {
             'weektime': 'Выберите дату',
-            'hourtime': 'Выберите время',
-            'number': 'Вставьте номер кандидата',
-        }
-        widgets = {'weektime': SelectDateWidget()}
-
-
-class MessageOfficeForm(forms.ModelForm):
-    class Meta:
-        model = MessageOffice
-        fields = ('weektime', 'hourtime', 'number')
-        label = {
-            'weektime': 'Выберите дату',
-            'hourtime': 'Выберите время',
             'number': 'Вставьте номер кандидата',
         }
         widgets = {'weektime': SelectDateWidget()}
