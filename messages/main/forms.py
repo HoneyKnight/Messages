@@ -11,9 +11,13 @@ class MessageForm(forms.ModelForm):
         label='Время собеседования',
         help_text='Выберите время собеседования'
     )
+
     def __init__(self, cities, *args, **kwargs):
         super(MessageForm, self).__init__(*args, **kwargs)
-        self.fields['hourtime'].queryset = InterviewTime.objects.filter(cities=cities)
+        self.fields['hourtime'].queryset = InterviewTime.objects.filter(
+            cities=cities
+        )
+
     class Meta:
         model = Message
         fields = ('weektime', 'hourtime', 'number')

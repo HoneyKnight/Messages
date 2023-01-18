@@ -85,6 +85,7 @@ class InterviewTime(models.Model):
         verbose_name='Время собеседования',
         help_text='Выберите время собеседования'
     )
+
     class Meta:
         verbose_name = 'Время собеседования'
         verbose_name_plural = 'Время собеседований'

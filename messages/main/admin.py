@@ -20,6 +20,7 @@ class InterviewTimeAdmin(admin.ModelAdmin):
         'value',
         'get_cities'
     )
+
     def get_cities(self, obj):
         return " | ".join([str(City) for City in obj.cities.all()])
 

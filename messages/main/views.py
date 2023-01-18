@@ -1,5 +1,4 @@
 from django.contrib.auth.decorators import login_required
-from django.db.models import Count
 from django.db.models.functions import Length
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.cache import cache_page
