@@ -4,6 +4,7 @@ from .models import (City, InterviewTime, Message, Priority, SampleResponse,
                      SampleStraight, Zapros)
 
 
+@admin.register(Message)
 class MessageAdmin(admin.ModelAdmin):
     list_display = (
         'id',
@@ -15,6 +16,7 @@ class MessageAdmin(admin.ModelAdmin):
     empty_value_display = '-пусто-'
 
 
+@admin.register(InterviewTime)
 class InterviewTimeAdmin(admin.ModelAdmin):
     list_display = (
         'value',
@@ -28,7 +30,5 @@ class InterviewTimeAdmin(admin.ModelAdmin):
 admin.site.register(Zapros)
 admin.site.register(Priority)
 admin.site.register(City)
-admin.site.register(InterviewTime, InterviewTimeAdmin)
-admin.site.register(Message, MessageAdmin)
 admin.site.register(SampleResponse)
 admin.site.register(SampleStraight)
