@@ -1,12 +1,13 @@
 from django.contrib.auth.decorators import login_required
 from django.db.models.functions import Length
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import get_object_or_404, render
 from django.views.decorators.cache import cache_page
 
 from .forms import (MessageForm, SampleResponseForm, SampleStraightForm,
                     ZaprosForm)
 from .models import (City, Message, Priority, SampleResponse, SampleStraight,
                      Zapros)
+from .utils import form_edit
 
 
 @cache_page(20, key_prefix='index_page')
@@ -68,13 +69,12 @@ def message_edit(request, message_id):
         request.POST or None,
         instance=messages,
     )
-    if not form.is_valid():
-        return render(request, 'main/edit_message.html', {
-            'messages': messages,
-            'form': form,
-        })
-    form.save()
-    return redirect(f'/cities/{messages.cities.slug}/')
+    return form_edit(
+        request=request,
+        model=messages,
+        form=form,
+        redirect_url=f'/cities/{messages.cities.slug}/'
+    )
 
 
 @login_required
@@ -84,13 +84,12 @@ def zapros_edit(request, zapros_id):
         request.POST or None,
         instance=zapros,
     )
-    if not form.is_valid():
-        return render(request, 'main/edit_message.html', {
-            'zapros': zapros,
-            'form': form,
-        })
-    form.save()
-    return redirect('/zapros/')
+    return form_edit(
+        request=request,
+        model=zapros,
+        form=form,
+        redirect_url='/zapros/'
+    )
 
 
 @login_required
@@ -100,13 +99,12 @@ def sample_edit(request, sampleresponse_id):
         request.POST or None,
         instance=sampleresponse,
     )
-    if not form.is_valid():
-        return render(request, 'main/edit_message.html', {
-            'sampleresponse': sampleresponse,
-            'form': form,
-        })
-    form.save()
-    return redirect('/sample/')
+    return form_edit(
+        request=request,
+        model=sampleresponse,
+        form=form,
+        redirect_url='/sample/'
+    )
 
 
 @login_required
@@ -116,10 +114,9 @@ def samplestraight_edit(request, samplestraight_id):
         request.POST or None,
         instance=samplestraight,
     )
-    if not form.is_valid():
-        return render(request, 'main/edit_message.html', {
-            'samplestraight': samplestraight,
-            'form': form,
-        })
-    form.save()
-    return redirect('/sample/')
+    return form_edit(
+        request=request,
+        model=samplestraight,
+        form=form,
+        redirect_url='/sample/'
+    )

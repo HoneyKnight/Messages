@@ -1,5 +1,7 @@
 import os
+
 from dotenv import load_dotenv
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -68,16 +70,24 @@ WSGI_APPLICATION = 'messages.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': os.getenv('DB_ENGINE', default='django.db.backends.postgresql_psycopg2'),
+#         'NAME': os.getenv('POSTGRES_DB', default='DB_name'),
+#         'USER': os.getenv('POSTGRES_USER', default='DB_user'),
+#         'PASSWORD': os.getenv('POSTGRES_PASSWORD', default='DB_password'),
+#         'HOST': os.getenv('DB_HOST', default='db'),
+#         'PORT': os.getenv('DB_PORT', default='5432')
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': os.getenv('DB_ENGINE', default='django.db.backends.postgresql_psycopg2'),
-        'NAME': os.getenv('DB_NAME', default='DB_name'),
-        'USER': os.getenv('POSTGRES_USER', default='DB_user'),
-        'PASSWORD': os.getenv('POSTGRES_PASSWORD', default='DB_password'),
-        'HOST': os.getenv('DB_HOST', default='db'),
-        'PORT': os.getenv('DB_PORT', default='5432')
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
 
 
 # Password validation
