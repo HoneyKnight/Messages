@@ -1,7 +1,23 @@
 from django.db import models
 
 
-class Message(models.Model):
+class TextTemplate(models.Model):
+    text = models.TextField(
+        max_length=300,
+        verbose_name='Текст сообщения',
+        help_text='Введите текст сообщения',
+    )
+    number = models.CharField(
+        max_length=20,
+        verbose_name='Номер кандидата',
+        help_text='Вставьте номер кандидата'
+    )
+
+    class Meta:
+        abstract = True
+
+
+class Message(TextTemplate):
     title = models.TextField(
         null=True,
         blank=True,
@@ -21,12 +37,6 @@ class Message(models.Model):
         verbose_name='Время собеседования',
         help_text='Выберите время собеседования'
     )
-    text = models.TextField(
-        null=False,
-        blank=False,
-        verbose_name='Текст сообщения',
-        help_text='Введите текст сообщения',
-    )
     cities = models.ForeignKey(
         'City',
         on_delete=models.SET_NULL,
@@ -34,13 +44,6 @@ class Message(models.Model):
         null=True,
         verbose_name='Город',
         help_text='Выберите город',
-    )
-    number = models.CharField(
-        max_length=20,
-        blank=True,
-        null=True,
-        verbose_name='Номер кандидата',
-        help_text='Вставьте номер кандидата'
     )
 
     class Meta:
@@ -170,18 +173,7 @@ class Zapros(models.Model):
         return 'Запрос'
 
 
-class SampleResponse(models.Model):
-    text = models.TextField(
-        max_length=300,
-        blank=True,
-        null=True,
-    )
-    number = models.CharField(
-        max_length=20,
-        verbose_name='Номер кандидата',
-        help_text='Вставьте номер кандидата'
-    )
-
+class SampleResponse(TextTemplate):
     class Meta:
         verbose_name = 'Шаблон отклика'
         verbose_name_plural = 'Шаблоны отклика'
@@ -190,23 +182,13 @@ class SampleResponse(models.Model):
         return 'Шаблон отклика'
 
 
-class SampleStraight(models.Model):
-    text = models.TextField(
-        max_length=300,
-        blank=True,
-        null=True,
-    )
+class SampleStraight(TextTemplate):
     name = models.CharField(
         max_length=30,
         blank=True,
         null=True,
         verbose_name='Имя',
         help_text='Введите своё имя'
-    )
-    number = models.CharField(
-        max_length=20,
-        verbose_name='Номер кандидата',
-        help_text='Вставьте номер кандидата'
     )
 
     class Meta:
