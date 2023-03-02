@@ -1,4 +1,3 @@
-from django.contrib.auth.decorators import login_required
 from django.db.models.functions import Length
 from django.shortcuts import get_object_or_404, render
 from django.views.decorators.cache import cache_page
@@ -11,7 +10,6 @@ from .utils import form_edit
 
 
 @cache_page(20, key_prefix='index_page')
-@login_required
 def index(request):
     cities = City.objects.all().order_by(Length('description').asc())[::-1]
     context = {
@@ -20,7 +18,6 @@ def index(request):
     return render(request, 'main/index.html', context)
 
 
-@login_required
 def sample(request):
     sampleresponse = SampleResponse.objects.all()
     samplestraight = SampleStraight.objects.all()
@@ -31,7 +28,6 @@ def sample(request):
     return render(request, 'main/sample.html', context)
 
 
-@login_required
 def messages(request, slug):
     cities = get_object_or_404(City, slug=slug)
     messages = Message.objects.filter(cities=cities)
@@ -42,7 +38,6 @@ def messages(request, slug):
     return render(request, 'main/city.html', context)
 
 
-@login_required
 def zapros(request):
     zapros = Zapros.objects.all()
     context = {
@@ -52,7 +47,6 @@ def zapros(request):
 
 
 @cache_page(20, key_prefix='priority_page')
-@login_required
 def priority(request):
     priority = Priority.objects.all()
     context = {
@@ -61,7 +55,6 @@ def priority(request):
     return render(request, 'main/priority.html', context)
 
 
-@login_required
 def message_edit(request, message_id):
     messages = get_object_or_404(Message, id=message_id)
     form = MessageForm(
@@ -77,7 +70,6 @@ def message_edit(request, message_id):
     )
 
 
-@login_required
 def zapros_edit(request, zapros_id):
     zapros = get_object_or_404(Zapros, id=zapros_id)
     form = ZaprosForm(
@@ -92,7 +84,6 @@ def zapros_edit(request, zapros_id):
     )
 
 
-@login_required
 def sample_edit(request, sampleresponse_id):
     sampleresponse = get_object_or_404(SampleResponse, id=sampleresponse_id)
     form = SampleResponseForm(
@@ -107,7 +98,6 @@ def sample_edit(request, sampleresponse_id):
     )
 
 
-@login_required
 def samplestraight_edit(request, samplestraight_id):
     samplestraight = get_object_or_404(SampleStraight, id=samplestraight_id)
     form = SampleStraightForm(

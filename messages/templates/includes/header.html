@@ -1,6 +1,5 @@
 {% load static %}
 {% with request.resolver_match.view_name as view_name %}
-{% if request.user.is_authenticated %}
 <nav class="navbar navbar-light" style="background-color: lightskyblue">
   <div class="container">
     <a class="navbar-brand" href="{% url 'main:index' %}">
@@ -33,5 +32,4 @@
     </ul>
   </div>
 </nav>
-{% endif %}
 {% endwith %}
