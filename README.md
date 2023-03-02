@@ -9,6 +9,9 @@ py -3.7 -m venv venv
 source venv/scripts/activate
 python -m pip install --upgrade pip
 pip install -r requirements.txt
+```
+cd messages
+```python
 python manage.py migrate
 python manage.py createsuperuser
 python manage.py runserver
