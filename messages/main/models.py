@@ -120,7 +120,7 @@ class Priority(models.Model):
         return self.city
 
 
-class Zapros(models.Model):
+class Zapros(TextTemplate):
     primer = models.TextField(
         max_length=500,
         blank=True,
@@ -130,12 +130,6 @@ class Zapros(models.Model):
     city = models.TextField(
         max_length=500,
         verbose_name='Площадка'
-    )
-    title = models.TextField(
-        max_length=500,
-        blank=True,
-        null=True,
-        verbose_name='Шапка сообщения'
     )
     town = models.CharField(
         max_length=100,
@@ -150,13 +144,6 @@ class Zapros(models.Model):
         null=True,
         verbose_name='ФИО',
         help_text='Введите ФИО'
-    )
-    number = models.CharField(
-        max_length=20,
-        blank=True,
-        null=True,
-        verbose_name='Номер телефона',
-        help_text='Введите номер телефона'
     )
     baza = models.TextField(
         blank=True,
