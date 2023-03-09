@@ -1,12 +1,11 @@
 from django.db.models.functions import Length
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.views.decorators.cache import cache_page
 
 from .forms import (MessageForm, SampleResponseForm, SampleStraightForm,
                     ZaprosForm)
 from .models import (City, Message, Priority, SampleResponse, SampleStraight,
                      Zapros)
-from .utils import form_edit
 
 
 @cache_page(20, key_prefix='index_page')
@@ -62,12 +61,14 @@ def message_edit(request, message_id):
         request.POST or None,
         instance=messages,
     )
-    return form_edit(
-        request=request,
-        model=messages,
-        form=form,
-        redirect_url=f'/cities/{messages.cities.slug}/'
-    )
+    if not form.is_valid():
+        context = {
+            'messages': messages,
+            'form': form,
+        }
+        return render(request, 'main/edit_message.html', context)
+    form.save()
+    return redirect(f'/cities/{messages.cities.slug}/')
 
 
 def zapros_edit(request, zapros_id):
@@ -76,12 +77,14 @@ def zapros_edit(request, zapros_id):
         request.POST or None,
         instance=zapros,
     )
-    return form_edit(
-        request=request,
-        model=zapros,
-        form=form,
-        redirect_url='/zapros/'
-    )
+    if not form.is_valid():
+        context = {
+            'zapros': zapros,
+            'form': form,
+        }
+        return render(request, 'main/edit_message.html', context)
+    form.save()
+    return redirect('/zapros/')
 
 
 def sample_edit(request, sampleresponse_id):
@@ -90,12 +93,14 @@ def sample_edit(request, sampleresponse_id):
         request.POST or None,
         instance=sampleresponse,
     )
-    return form_edit(
-        request=request,
-        model=sampleresponse,
-        form=form,
-        redirect_url='/sample/'
-    )
+    if not form.is_valid():
+        context = {
+            'sampleresponse': sampleresponse,
+            'form': form,
+        }
+        return render(request, 'main/edit_message.html', context)
+    form.save()
+    return redirect('/sample/')
 
 
 def samplestraight_edit(request, samplestraight_id):
@@ -104,9 +109,11 @@ def samplestraight_edit(request, samplestraight_id):
         request.POST or None,
         instance=samplestraight,
     )
-    return form_edit(
-        request=request,
-        model=samplestraight,
-        form=form,
-        redirect_url='/sample/'
-    )
+    if not form.is_valid():
+        context = {
+            'samplestraight': samplestraight,
+            'form': form,
+        }
+        return render(request, 'main/edit_message.html', context)
+    form.save()
+    return redirect('/sample/')

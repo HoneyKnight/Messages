@@ -17,14 +17,6 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
-
-
-
-
-
-
-
-
 В корневой папке проекта введите команду для создания .env файла:
 
 ```py
