@@ -30,7 +30,6 @@ def sample(request):
 def messages(request, slug):
     cities = get_object_or_404(City, slug=slug)
     messages = cities.messages.select_related('hourtime')
-    # messages = Message.objects.filter(cities=cities)
     context = {
         'cities': cities,
         'messages': messages,
