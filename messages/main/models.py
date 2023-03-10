@@ -34,6 +34,7 @@ class Message(TextTemplate):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
+        related_name='messages',
         verbose_name='Время собеседования',
         help_text='Выберите время собеседования',
     )
@@ -42,6 +43,7 @@ class Message(TextTemplate):
         on_delete=models.SET_NULL,
         blank=True,
         null=True,
+        related_name='messages',
         verbose_name='Город',
         help_text='Выберите город',
     )
