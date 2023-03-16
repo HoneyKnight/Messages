@@ -10,7 +10,7 @@ class TextTemplate(models.Model):
     number = models.CharField(
         max_length=20,
         verbose_name='Номер кандидата',
-        help_text='Вставьте номер кандидата'
+        help_text='Вставьте номер кандидата',
     )
 
     class Meta:
@@ -21,27 +21,29 @@ class Message(TextTemplate):
     title = models.TextField(
         null=True,
         blank=True,
-        verbose_name='Заголовок'
+        verbose_name='Заголовок',
     )
     weektime = models.DateField(
         verbose_name='Дата собеседования',
         help_text='Выберите дату собеседования',
         blank=True,
-        null=True
+        null=True,
     )
     hourtime = models.ForeignKey(
         'InterviewTime',
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
+        related_name='messages',
         verbose_name='Время собеседования',
-        help_text='Выберите время собеседования'
+        help_text='Выберите время собеседования',
     )
     cities = models.ForeignKey(
         'City',
         on_delete=models.SET_NULL,
         blank=True,
         null=True,
+        related_name='messages',
         verbose_name='Город',
         help_text='Выберите город',
     )
@@ -58,17 +60,17 @@ class City(models.Model):
     title = models.CharField(
         max_length=200,
         null=False,
-        verbose_name='Город'
+        verbose_name='Город',
     )
     slug = models.SlugField(
         unique=True,
         null=False,
-        blank=False
+        blank=False,
     )
     description = models.TextField(
         blank=True,
         null=True,
-        verbose_name='Список доноров'
+        verbose_name='Список доноров',
     )
 
     class Meta:
@@ -81,12 +83,12 @@ class City(models.Model):
 
 class InterviewTime(models.Model):
     value = models.CharField(
-        max_length=50
+        max_length=50,
     )
     cities = models.ManyToManyField(
         City,
         verbose_name='Время собеседования',
-        help_text='Выберите время собеседования'
+        help_text='Выберите время собеседования',
     )
 
     class Meta:
@@ -103,13 +105,13 @@ class Priority(models.Model):
         max_length=250,
         blank=True,
         null=True,
-        verbose_name='Город'
+        verbose_name='Город',
     )
     vacancy = models.TextField(
         max_length=250,
         blank=True,
         null=True,
-        verbose_name='Список вакансий'
+        verbose_name='Список вакансий',
     )
 
     class Meta:
@@ -125,31 +127,31 @@ class Zapros(TextTemplate):
         max_length=500,
         blank=True,
         null=True,
-        verbose_name='Пример шапки запроса'
+        verbose_name='Пример шапки запроса',
     )
     city = models.TextField(
         max_length=500,
-        verbose_name='Площадка'
+        verbose_name='Площадка',
     )
     town = models.CharField(
         max_length=100,
         blank=True,
         null=True,
         verbose_name='Город',
-        help_text='Введите город'
+        help_text='Введите город',
     )
     name = models.CharField(
         max_length=100,
         blank=True,
         null=True,
         verbose_name='ФИО',
-        help_text='Введите ФИО'
+        help_text='Введите ФИО',
     )
     baza = models.TextField(
         blank=True,
         null=True,
         verbose_name='Ссылка на анкету',
-        help_text='Вставьте ссылку на анкету'
+        help_text='Вставьте ссылку на анкету',
     )
 
     class Meta:
@@ -175,7 +177,7 @@ class SampleStraight(TextTemplate):
         blank=True,
         null=True,
         verbose_name='Имя',
-        help_text='Введите своё имя'
+        help_text='Введите своё имя',
     )
 
     class Meta:
