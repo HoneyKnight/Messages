@@ -7,16 +7,16 @@ app_name = 'main'
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('cities/<slug:slug>/', views.messages, name='messages'),
+    path('cities/<slug:slug>/', views.message, name='messages'),
     path(
         'messages/<int:message_id>/edit/',
         views.message_edit,
         name='message_edit'
     ),
     path('priority/', views.priority, name='priority'),
-    path('zapros/', views.zapros, name='zapros'),
+    path('demand/', views.demand, name='demand'),
     path(
-        'zapros/<int:zapros_id>/edit/', views.zapros_edit, name='zapros_edit'
+        'demand/<int:demand_id>/edit/', views.demand_edit, name='demand_edit'
     ),
     path('sample/', views.sample, name='sample'),
     path(

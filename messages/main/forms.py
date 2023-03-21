@@ -2,7 +2,7 @@ from django import forms
 from django.forms import SelectDateWidget
 
 from .models import (InterviewTime, Message, SampleResponse, SampleStraight,
-                     Zapros)
+                     Demand)
 
 
 class MessageForm(forms.ModelForm):
@@ -28,15 +28,15 @@ class MessageForm(forms.ModelForm):
         widgets = {'weektime': SelectDateWidget()}
 
 
-class ZaprosForm(forms.ModelForm):
+class DemandForm(forms.ModelForm):
     class Meta:
-        model = Zapros
-        fields = ('town', 'name', 'number', 'baza')
+        model = Demand
+        fields = ('town', 'name', 'number', 'base')
         label = {
             'town': 'Введите город',
             'name': 'Введите имя',
             'number': 'Введите номер',
-            'baza': 'Вставьте ссылку на кандидата'
+            'base': 'Вставьте ссылку на кандидата'
         }
 
 

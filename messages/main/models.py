@@ -38,7 +38,7 @@ class Message(TextTemplate):
         verbose_name='Время собеседования',
         help_text='Выберите время собеседования',
     )
-    cities = models.ForeignKey(
+    city = models.ForeignKey(
         'City',
         on_delete=models.SET_NULL,
         blank=True,
@@ -122,8 +122,8 @@ class Priority(models.Model):
         return self.city
 
 
-class Zapros(TextTemplate):
-    primer = models.TextField(
+class Demand(TextTemplate):
+    header = models.TextField(
         max_length=500,
         blank=True,
         null=True,
@@ -147,7 +147,7 @@ class Zapros(TextTemplate):
         verbose_name='ФИО',
         help_text='Введите ФИО',
     )
-    baza = models.TextField(
+    base = models.TextField(
         blank=True,
         null=True,
         verbose_name='Ссылка на анкету',

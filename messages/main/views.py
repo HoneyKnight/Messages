@@ -3,9 +3,9 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.cache import cache_page
 
 from .forms import (MessageForm, SampleResponseForm, SampleStraightForm,
-                    ZaprosForm)
+                    DemandForm)
 from .models import (City, Message, Priority, SampleResponse, SampleStraight,
-                     Zapros)
+                     Demand)
 
 
 @cache_page(20, key_prefix='index_page')
@@ -27,22 +27,22 @@ def sample(request):
     return render(request, 'main/sample.html', context)
 
 
-def messages(request, slug):
-    cities = get_object_or_404(City, slug=slug)
-    messages = cities.messages.select_related('hourtime')
+def message(request, slug):
+    city = get_object_or_404(City, slug=slug)
+    message = city.messages.select_related('hourtime')
     context = {
-        'cities': cities,
-        'messages': messages,
+        'city': city,
+        'message': message,
     }
     return render(request, 'main/city.html', context)
 
 
-def zapros(request):
-    zapros = Zapros.objects.all()
+def demand(request):
+    demand = Demand.objects.all()
     context = {
-        'zapros': zapros,
+        'demand': demand,
     }
-    return render(request, 'main/zapros.html', context)
+    return render(request, 'main/demand.html', context)
 
 
 @cache_page(20, key_prefix='priority_page')
@@ -55,36 +55,36 @@ def priority(request):
 
 
 def message_edit(request, message_id):
-    messages = get_object_or_404(Message, id=message_id)
+    message = get_object_or_404(Message, id=message_id)
     form = MessageForm(
-        messages.cities,
+        message.city,
         request.POST or None,
-        instance=messages,
+        instance=message,
     )
     if not form.is_valid():
         context = {
-            'messages': messages,
+            'messages': message,
             'form': form,
         }
         return render(request, 'main/edit_message.html', context)
     form.save()
-    return redirect(f'/cities/{messages.cities.slug}/')
+    return redirect(f'/cities/{message.city.slug}/')
 
 
-def zapros_edit(request, zapros_id):
-    zapros = get_object_or_404(Zapros, id=zapros_id)
-    form = ZaprosForm(
+def demand_edit(request, demand_id):
+    demand = get_object_or_404(Demand, id=demand_id)
+    form = DemandForm(
         request.POST or None,
-        instance=zapros,
+        instance=demand,
     )
     if not form.is_valid():
         context = {
-            'zapros': zapros,
+            'demand': demand,
             'form': form,
         }
         return render(request, 'main/edit_message.html', context)
     form.save()
-    return redirect('/zapros/')
+    return redirect('/demand/')
 
 
 def sample_edit(request, sampleresponse_id):

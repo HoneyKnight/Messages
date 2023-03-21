@@ -3,7 +3,7 @@
 Сообщение
 {% endblock title %}
 {% block content %}
-{% for message in messages %}
+{% for message in message %}
 <textarea id="myInput" style="width:500px; height:300px;">
 {{ message.title }}
 {{ message.weektime }} {{ message.hourtime }} {{ message.text }}</textarea>

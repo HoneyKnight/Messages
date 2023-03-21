@@ -3,8 +3,8 @@
 Запросы
 {% endblock title %}
 {% block content %}
-{% for text in zapros %}
-    {{ text.primer|linebreaks }}
+{% for text in demand %}
+    {{ text.header|linebreaks }}
 <hr>
     <h3>{{ text.city|linebreaks }}</h3>
 <hr>
@@ -12,10 +12,10 @@
 {{ text.text }} {{ text.town }}
 {{ text.name }}
 {{ text.number }}
-{{ text.baza }}
+{{ text.base }}
 </textarea>
 <br>
-    <a class="btn btn-primary" href="{% url 'main:zapros_edit' text.id %}">редактировать</a>
+    <a class="btn btn-primary" href="{% url 'main:demand_edit' text.id %}">редактировать</a>
     <button class="btn btn-primary" id="copy" title="Copy Textarea Content">Копировать</button>
     <script>
     document.getElementById("copy").onclick = function() {

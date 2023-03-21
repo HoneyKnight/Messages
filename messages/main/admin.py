@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from .models import (City, InterviewTime, Message, Priority, SampleResponse,
-                     SampleStraight, Zapros)
+                     SampleStraight, Demand)
 
 
 @admin.register(Message)
@@ -9,9 +9,9 @@ class MessageAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'text',
-        'cities'
+        'city'
     )
-    list_editable = ('cities', )
+    list_editable = ('city', )
     search_fields = ('text', )
     empty_value_display = '-пусто-'
 
@@ -24,10 +24,10 @@ class InterviewTimeAdmin(admin.ModelAdmin):
     )
 
     def get_cities(self, obj):
-        return " | ".join([str(City) for City in obj.cities.all()])
+        return " | ".join([str(City) for City in obj.city.all()])
 
 
-admin.site.register(Zapros)
+admin.site.register(Demand)
 admin.site.register(Priority)
 admin.site.register(City)
 admin.site.register(SampleResponse)
